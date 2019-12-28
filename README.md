@@ -11,14 +11,14 @@ The app has three main pages:
 * TV Shows
 * Personal
 
-#### Movies
+##### Movies:
 You can search for movies and you can see what is popular, playing now, top rated and upcoming movies.
-#### TV Shows
+##### TV Shows:
 You can search for tv shows or you can see what is popular, on the air and top rated tv show.
-#### Personal
+##### Personal:
 For all your movies and tv shows that you marked favorive or added to your watchlisl.
 
 
 ## How
-The app use themoviedb api to get all information about movies and tv show, and when you mark a movie or a tv show as favorite or added to your watchlist it will be saved to your phone, so you can see it with out internet connection.
+The app use themoviedb api to get all information about movies and tv show, and when you mark a movie or a tv show as favorite or added to your watchlist it will be saved to your phone, so you can access it without internet connection agian.
 
