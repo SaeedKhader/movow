@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2219719E23B835C700688A41 /* ScrollingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2219719D23B835C700688A41 /* ScrollingStackView.swift */; };
 		228C877723B75E0400CD1AF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228C877623B75E0400CD1AF8 /* AppDelegate.swift */; };
 		228C877923B75E0400CD1AF8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228C877823B75E0400CD1AF8 /* SceneDelegate.swift */; };
 		228C877E23B75E0400CD1AF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 228C877C23B75E0400CD1AF8 /* Main.storyboard */; };
@@ -65,6 +66,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2219719D23B835C700688A41 /* ScrollingStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingStackView.swift; sourceTree = "<group>"; };
 		228C877323B75E0400CD1AF8 /* movow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = movow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		228C877623B75E0400CD1AF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		228C877823B75E0400CD1AF8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				228C87D123B75EE100CD1AF8 /* FavoriteButton.swift */,
 				228C87D223B75EE100CD1AF8 /* LargeTitleLable.swift */,
 				228C87D323B75EE100CD1AF8 /* GenresCollectionView.swift */,
+				2219719D23B835C700688A41 /* ScrollingStackView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				228C87B523B75ED200CD1AF8 /* TMDBResponse.swift in Sources */,
 				228C87E923B75EE100CD1AF8 /* FavoriteButton.swift in Sources */,
 				228C87E723B75EE100CD1AF8 /* CrewCollectionView.swift in Sources */,
+				2219719E23B835C700688A41 /* ScrollingStackView.swift in Sources */,
 				228C87DD23B75EE100CD1AF8 /* HeadlingLabel.swift in Sources */,
 				228C87D823B75EE100CD1AF8 /* MediaView.swift in Sources */,
 				228C87B823B75ED200CD1AF8 /* TMDBTypes.swift in Sources */,

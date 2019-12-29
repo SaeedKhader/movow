@@ -31,22 +31,7 @@ class TVShowDetailsViewController: UIViewController {
     
     //MARK: - UI Properties
     
-    let scrollView: UIScrollView = {
-        let s = UIScrollView()
-        s.translatesAutoresizingMaskIntoConstraints = false
-        s.showsVerticalScrollIndicator = false
-        return s
-    }()
-    
-    let viewContent: UIStackView = {
-        let s = UIStackView()
-        s.alignment = .fill
-        s.axis = .vertical
-        s.distribution = .fill
-        s.spacing = 20
-        s.translatesAutoresizingMaskIntoConstraints = false
-        return s
-    }()
+    let scrollingStackView = ScrollingStackView()
 
     var posterView: BigPosterView!
     let favoriteButton = FavoriteButton()
@@ -70,17 +55,18 @@ class TVShowDetailsViewController: UIViewController {
         mainInfoView = MediaMainInfoView(media: tvShow, mediaType: .tv)
         overviewView = OverviewView(overview: tvShow.overview)
         
-        view.addSubview(scrollView)
-        scrollView.addSubview(viewContent)
-        viewContent.addArrangedSubview(posterView)
+        view.addSubview(scrollingStackView)
+        scrollingStackView.addArrangedSubview(posterView)
         posterView.addSubview(favoriteButton)
         posterView.addSubview(watchlistButton)
-        viewContent.addArrangedSubview(mainInfoView)
-        viewContent.addArrangedSubview(overviewView)
+        scrollingStackView.addArrangedSubview(mainInfoView)
+        scrollingStackView.addArrangedSubview(overviewView)
         
         fetchDataFromDB()
         TMDBClient.getCredits(mediaType: .tv, id: tvShow.id, completion: handelGetCreditsResponse(credits:error:))
-
+        
+        scrollingStackView.spacing(20)
+        scrollingStackView.setUpLayout(topConstant: -(navigationController?.navigationBar.frame.maxY)!)
         setUpLayout()
             
     }
@@ -176,25 +162,25 @@ class TVShowDetailsViewController: UIViewController {
         let creators = credits!.crew.filter({ $0.job == "Writer" || $0.job == "Screenplay"})
         if !creators.isEmpty {
             let writerView = CrewView(crew: creators, crewType: .Creator)
-            self.viewContent.addArrangedSubview(writerView)
+            self.scrollingStackView.addArrangedSubview(writerView)
         }
         
         let writers = credits!.crew.filter({ $0.job == "Writer" || $0.job == "Screenplay"})
         if !writers.isEmpty {
             let writerView = CrewView(crew: writers, crewType: .Writer)
-            self.viewContent.addArrangedSubview(writerView)
+            self.scrollingStackView.addArrangedSubview(writerView)
         }
         
         let directors = credits!.crew.filter({ $0.job == "Director" })
         if !directors.isEmpty {
             let directorView = CrewView(crew: directors, crewType: .Director)
-            self.viewContent.addArrangedSubview(directorView)
+            self.scrollingStackView.addArrangedSubview(directorView)
         }
         
         let cast = credits!.cast
         if !cast.isEmpty {
             let castView = CastView(cast: cast)
-            self.viewContent.addArrangedSubview(castView)
+            self.scrollingStackView.addArrangedSubview(castView)
         }
     }
     
@@ -202,17 +188,6 @@ class TVShowDetailsViewController: UIViewController {
     //MARK: - Layout
     
     func setUpLayout() {
-        
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: -(navigationController?.navigationBar.frame.maxY)!).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        
-        viewContent.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        viewContent.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        viewContent.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        viewContent.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        viewContent.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
         
         favoriteButton.bottomAnchor.constraint(equalTo: posterView.bottomAnchor, constant: -15).isActive = true
         favoriteButton.trailingAnchor.constraint(equalTo: posterView.trailingAnchor, constant: -20).isActive = true

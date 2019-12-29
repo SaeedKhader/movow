@@ -19,22 +19,7 @@ class PersonalViewController: UIViewController {
     
     //MARK: - UI Properties
     
-    let scrollView: UIScrollView = {
-        let s = UIScrollView()
-        s.translatesAutoresizingMaskIntoConstraints = false
-        s.showsVerticalScrollIndicator = false
-        return s
-    }()
-    
-    let viewContent: UIStackView = {
-        let s = UIStackView()
-        s.alignment = .fill
-        s.axis = .vertical
-        s.distribution = .fill
-        s.spacing = 40
-        s.translatesAutoresizingMaskIntoConstraints = false
-        return s
-    }()
+    let scrollingStackView = ScrollingStackView()
     
     let favoriteMoviesView = MediaView(title: "Favorite Movies", mediaType: .movie)
     let moviesOnWatchlistView = MediaView(title: "Movies On Watchlist", mediaType: .movie)
@@ -56,14 +41,13 @@ class PersonalViewController: UIViewController {
         favoriteTVShowsView.setSuperVC(superVC: self)
         tvShowsOnWatchlistView.setSuperVC(superVC: self)
         
-        view.addSubview(scrollView)
-        scrollView.addSubview(viewContent)
-        viewContent.addArrangedSubview(favoriteMoviesView)
-        viewContent.addArrangedSubview(moviesOnWatchlistView)
-        viewContent.addArrangedSubview(favoriteTVShowsView)
-        viewContent.addArrangedSubview(tvShowsOnWatchlistView)
+        view.addSubview(scrollingStackView)
+        scrollingStackView.addArrangedSubview(favoriteMoviesView)
+        scrollingStackView.addArrangedSubview(moviesOnWatchlistView)
+        scrollingStackView.addArrangedSubview(favoriteTVShowsView)
+        scrollingStackView.addArrangedSubview(tvShowsOnWatchlistView)
         
-        setUpLayout()
+        scrollingStackView.setUpLayout(topConstant: 0)
         
         retrieveDataFromDB()
         
@@ -121,24 +105,6 @@ class PersonalViewController: UIViewController {
             }
             view.setMedia(media: tvShows)
         }
-    }
-
-    
-    //MARK: - Layout
-    
-    func setUpLayout() {
-        
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        
-        viewContent.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20).isActive = true
-        viewContent.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        viewContent.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        viewContent.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        viewContent.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-
     }
 
 }

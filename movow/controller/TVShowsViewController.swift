@@ -18,23 +18,8 @@ class TVShowsViewController: UIViewController {
     
     //MARK: - UI Properties
     
-    let scrollView: UIScrollView = {
-        let s = UIScrollView()
-        s.translatesAutoresizingMaskIntoConstraints = false
-        s.showsVerticalScrollIndicator = false
-        return s
-    }()
-    
-    let viewContent: UIStackView = {
-        let s = UIStackView()
-        s.alignment = .fill
-        s.axis = .vertical
-        s.distribution = .fill
-        s.spacing = 40
-        s.translatesAutoresizingMaskIntoConstraints = false
-        return s
-    }()
-        
+    let scrollingStackView = ScrollingStackView()
+
     let popularTVShowsView = MediaView(title: "Popular", mediaType: .tv)
     let onTheAirTVShowsView = MediaView(title: "On The Air", mediaType: .tv)
     let topRatedTVShowsView = MediaView(title: "Top Rated", mediaType: .tv)
@@ -53,27 +38,25 @@ class TVShowsViewController: UIViewController {
         navigationItem.titleView = LogoImageView()
         
         
-        scrollView.refreshControl = UIRefreshControl()
-        scrollView.refreshControl?.tintColor = .white
-        scrollView.refreshControl?.addTarget(self, action:
+        scrollingStackView.refreshControl = UIRefreshControl()
+        scrollingStackView.refreshControl?.tintColor = .white
+        scrollingStackView.refreshControl?.addTarget(self, action:
                                            #selector(handleRefreshControl),
                                            for: .valueChanged)
-              
-        setUpSearchView()
-        
+                      
         popularTVShowsView.setSuperVC(superVC: self)
         onTheAirTVShowsView.setSuperVC(superVC: self)
         topRatedTVShowsView.setSuperVC(superVC: self)
         
-        view.addSubview(scrollView)
+        view.addSubview(scrollingStackView)
         view.addSubview(searchView)
-        scrollView.addSubview(viewContent)
-        viewContent.addArrangedSubview(popularTVShowsView)
-        viewContent.addArrangedSubview(onTheAirTVShowsView)
-        viewContent.addArrangedSubview(topRatedTVShowsView)
+        scrollingStackView.addArrangedSubview(popularTVShowsView)
+        scrollingStackView.addArrangedSubview(onTheAirTVShowsView)
+        scrollingStackView.addArrangedSubview(topRatedTVShowsView)
         
-        setUpLayout()
-        
+        scrollingStackView.setUpLayout(topConstant: 0)
+        setUpSearchView()
+
         checkInternetConnection()
         retrieveDataFromURL()
         
@@ -133,7 +116,7 @@ class TVShowsViewController: UIViewController {
     @objc func handleRefreshControl() {
         retrieveDataFromURL()
         DispatchQueue.main.async {
-            self.scrollView.refreshControl?.endRefreshing()
+            self.scrollingStackView.refreshControl?.endRefreshing()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self.checkInternetConnection()
             }
@@ -151,6 +134,11 @@ class TVShowsViewController: UIViewController {
         let searchImg = UIImage(systemName: "magnifyingglass")?.withTintColor(.white, renderingMode: .alwaysOriginal)
         searchBtn = UIBarButtonItem(image: searchImg, style: .done, target: self, action: #selector(searchTapped))
         navigationItem.rightBarButtonItem = searchBtn
+        
+        searchView.topAnchor.constraint(equalTo: scrollingStackView.topAnchor).isActive = true
+        searchView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        searchView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        searchView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
     func checkInternetConnection() {
@@ -163,29 +151,6 @@ class TVShowsViewController: UIViewController {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         present(alertVC, animated: true, completion: nil)
-    }
-    
-    
-    //MARK: - Layout
-    
-    func setUpLayout() {
-        
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        
-        viewContent.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20).isActive = true
-        viewContent.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        viewContent.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        viewContent.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        viewContent.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-        
-        
-        searchView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        searchView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        searchView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        searchView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
 }
