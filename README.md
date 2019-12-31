@@ -19,6 +19,5 @@ You can search for tv shows or you can see what is popular, on the air and top r
 For all your movies and tv shows that you marked favorive or added to your watchlisl.
 
 
-## How
-The app use themoviedb api to get all information about movies and tv show, and when you mark a movie or a tv show as favorite or added to your watchlist it will be saved to your phone, so you can access it without internet connection agian.
-
+## How To use
+There is no extra steps to run the app, The app use themoviedb api to get all information about movies and tv show, so you just need internet connection at the begining, and when you mark a movie or a tv show as favorite or added to your watchlist it will be saved to your phone, so you can access it without internet connection agian.
